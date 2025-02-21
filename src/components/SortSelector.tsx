@@ -1,0 +1,54 @@
+import {
+  Button,
+  MenuContent,
+  MenuItem,
+  MenuRoot,
+  MenuTrigger,
+} from "@chakra-ui/react";
+import { useColorModeValue } from "./ui/color-mode";
+import { BsChevronDown } from "react-icons/bs";
+
+interface Props {
+  onSelectSortOrder: (sortOrder: string) => void;
+  sortOrder: string | null;
+}
+
+const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
+  const sortOrders = [
+    { value: "", label: "Relevance" },
+    { value: "-added", label: "Date added" },
+    { value: "name", label: "Name" },
+    { value: "-released", label: "Release date" },
+    { value: "-metacritic", label: "Popularity" },
+    { value: "-rating", label: "Average rating" },
+  ];
+
+  const curSortOrder = sortOrders.find((order) => order.value === sortOrder);
+
+  const bg = useColorModeValue("gray.300", "gray.700");
+  const color = useColorModeValue("black", "white");
+
+  return (
+    <MenuRoot>
+      <MenuTrigger asChild>
+        <Button bg={bg} color={color}>
+          {`Order by: ${curSortOrder?.label || "Relevance"}`} <BsChevronDown />
+        </Button>
+      </MenuTrigger>
+      <MenuContent width="200px" position={"absolute"} style={{ zIndex: 1000 }}>
+        {sortOrders &&
+          sortOrders.map((order) => (
+            <MenuItem
+              key={order.value}
+              value={order.value}
+              onClick={() => onSelectSortOrder(order.value)}
+            >
+              {order.value}
+            </MenuItem>
+          ))}
+      </MenuContent>
+    </MenuRoot>
+  );
+};
+
+export default SortSelector;

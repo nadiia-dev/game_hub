@@ -2,13 +2,9 @@ import { Button, MenuContent, MenuRoot, MenuTrigger } from "@chakra-ui/react";
 import { useColorModeValue } from "./ui/color-mode";
 import { BsChevronDown } from "react-icons/bs";
 import { CustomMenuItem } from "./CustomMenuItem";
+import useGameQueryStore from "@/store";
 
-interface Props {
-  onSelectSortOrder: (sortOrder: string) => void;
-  sortOrder: string | null;
-}
-
-const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
+const SortSelector = () => {
   const sortOrders = [
     { value: "", label: "Relevance" },
     { value: "-added", label: "Date added" },
@@ -17,6 +13,9 @@ const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
     { value: "-metacritic", label: "Popularity" },
     { value: "-rating", label: "Average rating" },
   ];
+
+  const sortOrder = useGameQueryStore((s) => s.gameQuery.sortOrder);
+  const setSortOrder = useGameQueryStore((s) => s.setSortOrder);
 
   const curSortOrder = sortOrders.find((order) => order.value === sortOrder);
 
@@ -43,7 +42,7 @@ const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
               <CustomMenuItem
                 key={order.value}
                 value={order.value}
-                onClick={() => onSelectSortOrder(order.value)}
+                onClick={() => setSortOrder(order.value)}
               >
                 {order.value}
               </CustomMenuItem>

@@ -25,7 +25,7 @@ const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
 
   const curSortOrder = sortOrders.find((order) => order.value === sortOrder);
 
-  const bg = useColorModeValue("gray.300", "gray.700");
+  const bg = useColorModeValue("gray.100", "gray.700");
   const color = useColorModeValue("black", "white");
 
   return (

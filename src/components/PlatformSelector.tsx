@@ -17,7 +17,7 @@ interface Props {
 const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
   const { data, error } = usePlatforms();
 
-  const bg = useColorModeValue("gray.300", "gray.700");
+  const bg = useColorModeValue("gray.100", "gray.700");
   const color = useColorModeValue("black", "white");
 
   if (error) return null;

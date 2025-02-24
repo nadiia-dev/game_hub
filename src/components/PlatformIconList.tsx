@@ -12,6 +12,7 @@ import { BsGlobe } from "react-icons/bs";
 import { Platform } from "@/hooks/useGame";
 import { HStack, Icon } from "@chakra-ui/react";
 import { IconType } from "react-icons";
+import { useColorModeValue } from "./ui/color-mode";
 
 interface Props {
   platforms: Platform[];
@@ -30,10 +31,12 @@ const PlatformIconList = ({ platforms }: Props) => {
     web: BsGlobe,
   };
 
+  const color = useColorModeValue("gray.300", "gray.500");
+
   return (
     <HStack margin={1}>
       {platforms.map((platform) => (
-        <Icon key={platform.id} as={iconMap[platform.slug]} color="gray.500" />
+        <Icon key={platform.id} as={iconMap[platform.slug]} color={color} />
       ))}
     </HStack>
   );

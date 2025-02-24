@@ -32,7 +32,7 @@ const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
           left="0"
         >
           {data &&
-            data.map((platform) => (
+            data.results.map((platform) => (
               <CustomMenuItem
                 key={platform.id}
                 value={platform.name}

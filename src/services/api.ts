@@ -1,4 +1,9 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
+
+export interface FetchResult<T> {
+  count: number;
+  results: T[];
+}
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -7,4 +12,18 @@ const api = axios.create({
   },
 });
 
-export default api;
+class APIClient<T> {
+  endpoint: string;
+
+  constructor(endpoint: string) {
+    this.endpoint = endpoint;
+  }
+
+  getAll = (config: AxiosRequestConfig) => {
+    return api
+      .get<FetchResult<T>>(this.endpoint, config)
+      .then((res) => res.data);
+  };
+}
+
+export default APIClient;

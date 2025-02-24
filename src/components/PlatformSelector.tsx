@@ -1,13 +1,8 @@
 import usePlatforms, { Platform } from "@/hooks/usePlatforms";
-import {
-  Button,
-  MenuContent,
-  MenuItem,
-  MenuRoot,
-  MenuTrigger,
-} from "@chakra-ui/react";
+import { Button, MenuContent, MenuRoot, MenuTrigger } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 import { useColorModeValue } from "./ui/color-mode";
+import { CustomMenuItem } from "./CustomMenuItem";
 
 interface Props {
   onSelectPlatform: (platform: Platform) => void;
@@ -24,23 +19,30 @@ const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
 
   return (
     <MenuRoot>
-      <MenuTrigger asChild>
-        <Button bg={bg} color={color}>
-          {selectedPlatform?.name || "Platforms"} <BsChevronDown />
-        </Button>
-      </MenuTrigger>
-      <MenuContent width="200px" position={"absolute"} style={{ zIndex: 1000 }}>
-        {data &&
-          data.map((platform) => (
-            <MenuItem
-              key={platform.id}
-              value={platform.name}
-              onClick={() => onSelectPlatform(platform)}
-            >
-              {platform.name}
-            </MenuItem>
-          ))}
-      </MenuContent>
+      <div style={{ position: "relative", display: "inline-block" }}>
+        <MenuTrigger asChild>
+          <Button bg={bg} color={color}>
+            {selectedPlatform?.name || "Platforms"} <BsChevronDown />
+          </Button>
+        </MenuTrigger>
+        <MenuContent
+          width="200px"
+          position="absolute"
+          top="calc(100% + 4px)"
+          left="0"
+        >
+          {data &&
+            data.map((platform) => (
+              <CustomMenuItem
+                key={platform.id}
+                value={platform.name}
+                onClick={() => onSelectPlatform(platform)}
+              >
+                {platform.name}
+              </CustomMenuItem>
+            ))}
+        </MenuContent>
+      </div>
     </MenuRoot>
   );
 };

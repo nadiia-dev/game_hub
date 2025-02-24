@@ -1,12 +1,7 @@
-import {
-  Button,
-  MenuContent,
-  MenuItem,
-  MenuRoot,
-  MenuTrigger,
-} from "@chakra-ui/react";
+import { Button, MenuContent, MenuRoot, MenuTrigger } from "@chakra-ui/react";
 import { useColorModeValue } from "./ui/color-mode";
 import { BsChevronDown } from "react-icons/bs";
+import { CustomMenuItem } from "./CustomMenuItem";
 
 interface Props {
   onSelectSortOrder: (sortOrder: string) => void;
@@ -30,23 +25,31 @@ const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
 
   return (
     <MenuRoot>
-      <MenuTrigger asChild>
-        <Button bg={bg} color={color}>
-          {`Order by: ${curSortOrder?.label || "Relevance"}`} <BsChevronDown />
-        </Button>
-      </MenuTrigger>
-      <MenuContent width="200px" position={"absolute"} style={{ zIndex: 1000 }}>
-        {sortOrders &&
-          sortOrders.map((order) => (
-            <MenuItem
-              key={order.value}
-              value={order.value}
-              onClick={() => onSelectSortOrder(order.value)}
-            >
-              {order.value}
-            </MenuItem>
-          ))}
-      </MenuContent>
+      <div style={{ position: "relative", display: "inline-block" }}>
+        <MenuTrigger asChild>
+          <Button bg={bg} color={color}>
+            {`Order by: ${curSortOrder?.label || "Relevance"}`}{" "}
+            <BsChevronDown />
+          </Button>
+        </MenuTrigger>
+        <MenuContent
+          width="200px"
+          position="absolute"
+          top="calc(100% + 4px)"
+          left="0"
+        >
+          {sortOrders &&
+            sortOrders.map((order) => (
+              <CustomMenuItem
+                key={order.value}
+                value={order.value}
+                onClick={() => onSelectSortOrder(order.value)}
+              >
+                {order.value}
+              </CustomMenuItem>
+            ))}
+        </MenuContent>
+      </div>
     </MenuRoot>
   );
 };

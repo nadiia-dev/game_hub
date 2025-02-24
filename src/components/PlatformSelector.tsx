@@ -3,14 +3,16 @@ import { Button, MenuContent, MenuRoot, MenuTrigger } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 import { useColorModeValue } from "./ui/color-mode";
 import { CustomMenuItem } from "./CustomMenuItem";
+import usePlatform from "@/hooks/usePlatform";
 
 interface Props {
   onSelectPlatform: (platform: Platform) => void;
-  selectedPlatform: Platform | null;
+  selectedPlatformId?: number;
 }
 
-const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
+const PlatformSelector = ({ onSelectPlatform, selectedPlatformId }: Props) => {
   const { data, error } = usePlatforms();
+  const selectedPlatform = usePlatform(selectedPlatformId);
 
   const bg = useColorModeValue("gray.100", "gray.700");
   const color = useColorModeValue("black", "white");

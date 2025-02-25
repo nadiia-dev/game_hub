@@ -1,5 +1,6 @@
 import { Button, Text } from "@chakra-ui/react";
 import { useState } from "react";
+import { useColorModeValue } from "./ui/color-mode";
 
 interface Props {
   children: string;
@@ -8,6 +9,9 @@ interface Props {
 const ExpandableText = ({ children }: Props) => {
   const [expanded, setExpanded] = useState(false);
   const limit = 300;
+
+  const bg = useColorModeValue("gray.100", "gray.700");
+  const color = useColorModeValue("black", "white");
 
   if (!children) return null;
 
@@ -22,7 +26,8 @@ const ExpandableText = ({ children }: Props) => {
         size="xs"
         marginLeft={1}
         fontWeight="bold"
-        colorScheme="yellow"
+        bg={bg}
+        color={color}
         onClick={() => setExpanded(!expanded)}
       >
         {expanded ? "Show less" : "Show more"}

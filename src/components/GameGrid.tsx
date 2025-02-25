@@ -21,8 +21,8 @@ function GameGrid() {
   return (
     <InfiniteScroll
       dataLength={gamesCount}
-      hasMore={!!hasNextPage}
-      next={() => fetchNextPage()}
+      hasMore={hasNextPage}
+      next={fetchNextPage}
       loader={<h4>Loading...</h4>}
     >
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} gap="20px">
